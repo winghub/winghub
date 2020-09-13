@@ -1,0 +1,25 @@
+name: Cl
+
+on:
+  push:
+    branches:
+      - gh-pages
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: GitHub Checkout
+        uses: actions/checkout@v1
+      - name: Build & Deploy to GitHub Pages
+        run: |
+         echo "Publishing..."
+         git clone https://github.com/zixas/zixas.git
+         cd zixas
+         rm -rf .git
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./zixas
+          publish_branch: master
+          force_orphan: true
